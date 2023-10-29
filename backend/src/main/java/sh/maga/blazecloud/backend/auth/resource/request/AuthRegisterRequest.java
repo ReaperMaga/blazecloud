@@ -1,9 +1,7 @@
 package sh.maga.blazecloud.backend.auth.resource.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * Copyright (c) Maga, All Rights Reserved
@@ -12,7 +10,7 @@ import lombok.NoArgsConstructor;
  * Written by Maga
  **/
 @Data
-public class AuthLoginBasicRequest {
+public class AuthRegisterRequest {
 
     @NotBlank
     private String name;

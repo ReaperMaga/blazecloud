@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import sh.maga.blazecloud.backend.user.model.User;
 
+import java.util.UUID;
+
 /**
  * Copyright (c) Maga, All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
@@ -17,5 +19,7 @@ import sh.maga.blazecloud.backend.user.model.User;
 public class AuthResponse {
 
     private User user;
-    private String token;
+
+    private String accessToken;
+    private UUID refreshToken;
 }

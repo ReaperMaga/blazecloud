@@ -29,6 +29,10 @@ public class UserRepository implements PanacheMongoRepositoryBase<User, UUID> {
         return find("name", name).withCollation(nameCollation).firstResultOptional();
     }
 
+    public boolean existsByName(String name) {
+        return findByName(name).isPresent();
+    }
+
     public void onStart(@Observes StartupEvent event) {
         IndexOptions options = new IndexOptions().collation(nameCollation);
         mongoCollection().createIndex(Indexes.ascending("name"), options);

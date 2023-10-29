@@ -1,9 +1,10 @@
 package sh.maga.blazecloud.backend.auth.resource.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 /**
  * Copyright (c) Maga, All Rights Reserved
@@ -12,10 +13,10 @@ import lombok.NoArgsConstructor;
  * Written by Maga
  **/
 @Data
-public class AuthLoginBasicRequest {
+public class AuthRefreshRequest {
 
+    @NotNull
+    private UUID refreshToken;
     @NotBlank
-    private String name;
-    @NotBlank
-    private String password;
+    private String accessToken;
 }

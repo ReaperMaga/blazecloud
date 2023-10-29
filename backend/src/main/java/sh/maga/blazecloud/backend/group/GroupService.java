@@ -32,6 +32,10 @@ public class GroupService {
         return group;
     }
 
+    public Group getDefaultGroup() {
+        return repository.find("name", "Member").firstResult();
+    }
+
     public void onStart(@Observes @Priority(1) StartupEvent event) {
         if(repository.count() == 0) {
             repository.persist(create("Admin", "*"));
