@@ -6,6 +6,7 @@ import sh.maga.blazecloud.backend.group.model.Group;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -17,12 +18,8 @@ import java.util.UUID;
 @ApplicationScoped
 public class GroupRepository implements PanacheMongoRepositoryBase<Group, UUID> {
 
-    public Group create(String name, String... permissions) {
-        Group group = new Group();
-        group.setId(UUID.randomUUID());
-        group.setName(name);
-        group.setPermissions(new HashSet<>(Arrays.asList(permissions)));
-        return group;
+    public Optional<Group> findByName(String name) {
+        return find("name", name).firstResultOptional();
     }
 
 
