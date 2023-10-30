@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
  * Written by Maga
  **/
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthLoginBasicRequest {
 
     @NotBlank
