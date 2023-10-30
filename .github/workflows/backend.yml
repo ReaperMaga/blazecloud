@@ -22,6 +22,6 @@ jobs:
       with:
         java-version: "21"
         distribution: "adopt"
-    - run: mvn -B test --file pom.xml
+    - run: mvn -B test
       env:
         QUARKUS_MONGODB_CONNECTION_STRING: mongodb://localhost:27017
