@@ -3,6 +3,7 @@ package sh.maga.blazecloud.backend;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
+import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,6 @@ public class GroupResourceTest {
     }
 
     @Test
-
     public void testGetAll() {
         Group group = service.create("Test");
         repository.persist(group);
@@ -53,9 +53,43 @@ public class GroupResourceTest {
         Group group = service.create("Test");
         repository.persist(group);
         given()
-                .when().get()
+                .when().get("/" + group.getId())
                 .then()
                 .statusCode(200)
-                .body("id", is(group.getId()));
+                .body("name", is(group.getName()));
+    }
+
+    @Test
+    public void testCreate() {
+        Group group = service.create("Test");
+        given().body(group).contentType(ContentType.JSON)
+                .when().post()
+                .then()
+                .statusCode(201)
+                .body("name", is(group.getName()));
+    }
+
+    @Test
+    public void testCreateFail() {
+        Group group = service.create("Test");
+        repository.persist(group);
+        given().body(group).contentType(ContentType.JSON)
+                .when().post()
+                .then()
+                .statusCode(403);
+    }
+
+    @Test
+    public void testUpdate() {
+        Group group = service.create("Test");
+        repository.persist(group);
+
+        Group newUpdate = new Group();
+        newUpdate.setName("OtherTest");
+        given().body(newUpdate).contentType(ContentType.JSON)
+                .when().patch("/" + group.getId())
+                .then()
+                .statusCode(200)
+                .body("name", is(newUpdate.getName()));
     }
 }

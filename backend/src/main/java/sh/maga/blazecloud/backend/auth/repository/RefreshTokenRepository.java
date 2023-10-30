@@ -1,7 +1,11 @@
 package sh.maga.blazecloud.backend.auth.repository;
 
+import com.mongodb.client.model.IndexOptions;
+import com.mongodb.client.model.Indexes;
 import io.quarkus.mongodb.panache.PanacheMongoRepositoryBase;
+import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import sh.maga.blazecloud.backend.auth.model.RefreshToken;
 
 import java.util.Optional;
@@ -22,5 +26,9 @@ public class RefreshTokenRepository implements PanacheMongoRepositoryBase<Refres
 
     public boolean existsByUser(UUID id) {
         return findByUser(id).isPresent();
+    }
+
+    public void onStart(@Observes StartupEvent event) {
+        mongoCollection().createIndex(Indexes.ascending("user"));
     }
 }

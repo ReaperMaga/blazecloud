@@ -1,14 +1,10 @@
 package sh.maga.blazecloud.backend.auth;
 
 import io.quarkus.runtime.StartupEvent;
-import io.smallrye.jwt.algorithm.SignatureAlgorithm;
 import io.smallrye.jwt.build.Jwt;
-import io.smallrye.jwt.util.KeyUtils;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-import jakarta.xml.bind.DatatypeConverter;
-import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import sh.maga.blazecloud.backend.auth.model.RefreshToken;
 import sh.maga.blazecloud.backend.auth.repository.RefreshTokenRepository;
@@ -16,14 +12,11 @@ import sh.maga.blazecloud.backend.group.model.Group;
 import sh.maga.blazecloud.backend.group.repository.GroupRepository;
 import sh.maga.blazecloud.backend.user.model.User;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.nio.charset.Charset;
-import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Copyright (c) Maga, All Rights Reserved

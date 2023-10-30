@@ -22,5 +22,9 @@ public class GroupRepository implements PanacheMongoRepositoryBase<Group, UUID> 
         return find("name", name).firstResultOptional();
     }
 
+    public boolean existsByName(String name) {
+        return findByName(name).isPresent();
+    }
+
 
 }
