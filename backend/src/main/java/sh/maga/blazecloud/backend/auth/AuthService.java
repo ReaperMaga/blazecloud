@@ -1,8 +1,14 @@
 package sh.maga.blazecloud.backend.auth;
 
+import io.quarkus.runtime.StartupEvent;
+import io.smallrye.jwt.algorithm.SignatureAlgorithm;
 import io.smallrye.jwt.build.Jwt;
+import io.smallrye.jwt.util.KeyUtils;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import jakarta.xml.bind.DatatypeConverter;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import sh.maga.blazecloud.backend.auth.model.RefreshToken;
 import sh.maga.blazecloud.backend.auth.repository.RefreshTokenRepository;
@@ -10,12 +16,14 @@ import sh.maga.blazecloud.backend.group.model.Group;
 import sh.maga.blazecloud.backend.group.repository.GroupRepository;
 import sh.maga.blazecloud.backend.user.model.User;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.charset.Charset;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Copyright (c) Maga, All Rights Reserved
@@ -40,6 +48,19 @@ public class AuthService {
 
     @ConfigProperty(name = "refresh-token.lifetime.minutes", defaultValue = "43200")
     long refreshTokenLifeTimeMinutes;
+
+    public void onStart(@Observes StartupEvent event) {
+       /* try {
+            KeyPair keyPair = KeyUtils.generateKeyPair(2048, SignatureAlgorithm.RS256);
+            Base64.Encoder encoder = Base64.getMimeEncoder(64, "\n".getBytes(Charset.defaultCharset()));
+            String privateString = encoder.encodeToString(keyPair.getPrivate().getEncoded());
+            String publicString = encoder.encodeToString(keyPair.getPublic().getEncoded());
+            FileUtils.writeStringToFile(new File("privateKey.pem"), privateString, Charset.defaultCharset());
+            FileUtils.writeStringToFile(new File("publicKey.pem"), publicString, Charset.defaultCharset());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }*/
+    }
 
     public String generateToken(User user) {
         Set<String> permissions = new HashSet<>();
