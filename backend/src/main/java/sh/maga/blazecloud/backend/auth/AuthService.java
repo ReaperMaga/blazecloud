@@ -12,6 +12,8 @@ import sh.maga.blazecloud.backend.group.model.Group;
 import sh.maga.blazecloud.backend.group.repository.GroupRepository;
 import sh.maga.blazecloud.backend.user.model.User;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.Optional;
@@ -43,13 +45,13 @@ public class AuthService {
     long refreshTokenLifeTimeMinutes;
 
     public void onStart(@Observes StartupEvent event) {
-       /* try {
+       /*try {
             KeyPair keyPair = KeyUtils.generateKeyPair(2048, SignatureAlgorithm.RS256);
             Base64.Encoder encoder = Base64.getMimeEncoder(64, "\n".getBytes(Charset.defaultCharset()));
             String privateString = encoder.encodeToString(keyPair.getPrivate().getEncoded());
             String publicString = encoder.encodeToString(keyPair.getPublic().getEncoded());
-            FileUtils.writeStringToFile(new File("privateKey.pem"), privateString, Charset.defaultCharset());
-            FileUtils.writeStringToFile(new File("publicKey.pem"), publicString, Charset.defaultCharset());
+            Files.writeString(Path.of("privateKey.pem"), privateString);
+            Files.writeString(Path.of("publicKey.pem"), publicString);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }*/
