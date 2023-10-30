@@ -22,7 +22,6 @@ jobs:
       with:
         java-version: "21"
         distribution: "adopt"
-    - run: cd backend/
-    - run: mvn -B test
+    - run: mvn -B test -f backend/pom.xml
       env:
         QUARKUS_MONGODB_CONNECTION_STRING: mongodb://localhost:27017
